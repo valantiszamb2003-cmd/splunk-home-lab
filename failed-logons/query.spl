@@ -1,4 +1,0 @@
-index=soc_lab sourcetype=windows_security_sim EventCode=4625
-| stats count by User, SourceIP, FailureReason
-| rename count as "Log In Fails"
-| sort -"Log In Fails"
