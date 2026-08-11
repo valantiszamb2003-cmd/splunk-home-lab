@@ -1,0 +1,5 @@
+index=main sourcetype=eventgen
+| stats count as totalEvents, count(eval(responseCode>200)) as totalFailedEvents, count(eval(responseCode==200)) as totalSuccessfulEvents by partner
+| eval successPercentage=(totalSuccessfulEvents/totalEvents)*100
+| eval failurePercentage=(totalFailedEvents/totalEvents)*100
+| sort -successPercentage
