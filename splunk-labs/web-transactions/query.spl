@@ -1,0 +1,16 @@
+1) Table:
+
+index=web sourcetype=access_combined
+| transaction JSESSIONID, clientip startswith=eval(action="addtocart") endswith=eval(action="purchase")
+| highlight "addtocart", "purchase"
+| table JSESSIONID, clientip, duration, eventcount, action
+| sort -eventcount
+
+2)Timechart: 
+
+index=web sourcetype=access_combined
+| transaction JSESSIONID, clientip startswith=eval(action="addtocart") endswith=eval(action="purchase")
+| highlight "addtocart", "purchase"
+| table JSESSIONID, clientip, duration, eventcount, action, _time
+| sort -eventcount
+| timechart count as "Number of Transactions" by eventcount
