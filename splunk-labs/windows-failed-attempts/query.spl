@@ -1,0 +1,6 @@
+index=soc_lab sourcetype=windows_security_sim EventCode=4625
+| transaction SourceIP maxpause=30s
+| where eventcount>=5
+| table SourceIP, User, Workstation, FailureReason, duration, eventcount
+| rename duration as "Attempt Window", eventcount as "Failed Attempts"
+| sort -"Failed Attempts"
