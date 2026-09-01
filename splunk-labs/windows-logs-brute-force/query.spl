@@ -1,0 +1,11 @@
+1) index="windows_logs" sourcetype="windows_security_logs" event_id="4625"
+| stats count by user, source_ip, failure_reason, description
+| rename count as "Attempts"
+| sort -"Attempts"
+
+2)index="windows_logs" sourcetype="windows_security_logs" event_id="4624" user="rthompson" category=MALICIOUS
+| stats count by user, source_ip, description
+
+3)index="windows_logs" sourcetype="windows_security_logs" event_id="4688" user="rthompson" category=MALICIOUS
+| stats count by user, source_ip, description
+| sort -count
