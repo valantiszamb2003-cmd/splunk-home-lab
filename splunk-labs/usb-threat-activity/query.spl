@@ -1,0 +1,15 @@
+1)index="usb_activity" sourcetype="usb_activity"
+| lookup user_accounts.csv username as user
+| stats count by full_name, user, job_title, ip_address, device_type, device_name, event
+| where count > 5
+| rename count as "Times Connected"
+| sort -"Times Connected"
+
+2)index="usb_activity" sourcetype="usb_activity"
+| lookup user_accounts.csv username as user
+| timechart count by device_type
+
+3)index="usb_activity" sourcetype="usb_activity" category="MALICIOUS"
+| lookup user_accounts.csv username as user 
+| stats count by user, ip_address, device_name, device_type, event
+| sort -count
